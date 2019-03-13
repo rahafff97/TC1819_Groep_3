@@ -14,34 +14,24 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:background="#860A0A"
-        android:orientation="vertical"
+        android:layout_height="265dp"
         android:weightSum="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
+        android:background="#860A0A"
+        android:orientation="horizontal">
     </LinearLayout>
-
     <RelativeLayout
-        android:id="@+id/relativeLayout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:paddingTop="90dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/logotechlab" />
+        android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:scaleType="fitCenter"
+        android:paddingTop="8dp"
+        app:srcCompat="@drawable/logotechlab" />
 
         <TextView
             android:id="@+id/textView"
@@ -50,95 +40,99 @@
             android:layout_below="@+id/imageView"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
+            android:layout_marginTop="1dp"
             android:text="TECHLAB"
             android:textColor="#FCFAFA"
-            android:textSize="36sp" />
-
+            android:textSize="22sp" />
         <FrameLayout
             android:id="@+id/frameLayout2"
-            android:layout_width="304dp"
-            android:layout_height="289dp"
-            android:layout_below="@+id/textView"
+            android:layout_centerHorizontal="true"
+            android:layout_width="306dp"
+            android:layout_height="245dp"
+            android:background="#2E1C1C"
+            android:layout_marginTop="8dp"
             android:layout_centerInParent="true"
-            android:layout_marginTop="78dp"
-            android:background="#2E1C1C">
-
+            android:layout_below="@+id/textView">
         </FrameLayout>
-
         <FrameLayout
-            android:layout_width="300dp"
-            android:layout_height="284dp"
-            android:layout_below="@+id/textView"
+            android:layout_width="302dp"
+            android:layout_height="242dp"
+            android:layout_centerHorizontal="true"
+            android:background="#FCF8F8"
             android:layout_centerInParent="true"
-            android:layout_marginTop="80dp"
-            android:background="#FCF8F8">
-
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/textView">
         </FrameLayout>
-
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="360dp"
+            android:layout_marginLeft="272dp"
+            android:layout_marginTop="150dp"
             android:text="Gebruikersnaam"
             app:layout_constraintBottom_toTopOf="@+id/editText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
         <EditText
             android:id="@+id/editText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="380dp"
+            android:layout_marginTop="165dp"
             android:ems="10"
             android:inputType="textEmailAddress"
             app:layout_constraintBottom_toTopOf="@+id/textView4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="440dp"
+            android:layout_marginTop="220dp"
+            android:layout_marginLeft="272dp"
             android:text="Wachtwoord"
             app:layout_constraintBottom_toTopOf="@+id/editText2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
         <EditText
             android:id="@+id/editText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="460dp"
+            android:layout_marginTop="235dp"
             android:ems="10"
             android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-
         <Button
             android:id="@+id/button"
             android:layout_width="213dp"
             android:layout_height="44dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="530dp"
+            android:layout_marginTop="300dp"
             android:background="#860A0A"
-            android:text="Login"
             android:textColor="#FDFBFB"
+            android:text="Login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editText2" />
+
 
 
     </RelativeLayout>
     </RelativeLayout>
 
     </ScrollView>
+
+
+
+
+
+
+
+
+
+
 </android.support.constraint.ConstraintLayout>
