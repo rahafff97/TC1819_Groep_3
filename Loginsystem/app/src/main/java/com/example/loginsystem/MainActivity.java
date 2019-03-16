@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         else{
                 Toast.makeText(MainActivity.this, "You are not a student", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, MainActivity.class));
+                mGoogleSignInClient.signOut();
             }
 
         } catch (ApiException e) {
