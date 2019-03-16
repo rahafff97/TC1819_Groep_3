@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     int RC_SIGN_IN = 0;
     SignInButton signInButton;
     GoogleSignInClient mGoogleSignInClient;
+    boolean HrEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             String personEmail = account.getEmail();
             if (personEmail != null && personEmail.endsWith("@hr.nl")) {
 
-
+            HrEmail = true;
                 /* Signed in successfully, show authenticated UI. */
             startActivity(new Intent(MainActivity.this, Main2Activity.class));
         }
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         the GoogleSignInAccount will be non-null
          */
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if(account != null) {
+        if(account != null && HrEmail) {
             startActivity(new Intent(MainActivity.this, Main2Activity.class));
         }
         super.onStart();
