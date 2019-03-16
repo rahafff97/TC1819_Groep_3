@@ -1,10 +1,12 @@
 package com.example.loginsystem;
 
 import android.content.Intent;
+import android.print.PrintJob;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -66,11 +68,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
-            /* Signed in successfully, show authenticated UI. */
+        try {//check Hr account or not
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            String personEmail = account.getEmail();
+            if (personEmail != null && personEmail.endsWith("@hr.nl")) {
+
+
+                /* Signed in successfully, show authenticated UI. */
             startActivity(new Intent(MainActivity.this, Main2Activity.class));
+        }
+        else{
+                Toast.makeText(MainActivity.this, "You are not a student", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, MainActivity.class));
+            }
+
         } catch (ApiException e) {
             /* The ApiException status code indicates the detailed failure reason. */
             /* Please refer to the GoogleSignInStatusCodes class reference for more information.*/

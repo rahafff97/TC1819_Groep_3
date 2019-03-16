@@ -45,13 +45,14 @@ public class Main2Activity extends AppCompatActivity {
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignClient = GoogleSignIn.getClient(this, gso);
-
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(Main2Activity.this);
-        if (acct != null) {
+        //check Hr account or not
+        String personEmail = acct.getEmail();
+        if (acct != null && personEmail.endsWith("@hr.nl")) {
             String personName = acct.getDisplayName();
             String personGivenName = acct.getGivenName();
             String personFamilyName = acct.getFamilyName();
-            String personEmail = acct.getEmail();
+             personEmail = acct.getEmail();
             String personId = acct.getId();
             Uri personPhoto = acct.getPhotoUrl();
 
@@ -60,6 +61,7 @@ public class Main2Activity extends AppCompatActivity {
             idTV.setText("ID: "+personId);
             Glide.with(this).load(personPhoto).into(photoIV);
         }
+
 
         sign_out.setOnClickListener(new View.OnClickListener() {
             @Override
