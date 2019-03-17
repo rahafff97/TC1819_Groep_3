@@ -20,22 +20,25 @@ import com.google.android.gms.tasks.Task;
 
 public class AdminActivity extends AppCompatActivity {
     Button sign_out;
+    TextView emailTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
-        sign_out = findViewById(R.id.log_out);
+        emailTV = findViewById(R.id.email);
+        emailTV.setText("Email: " + LoginActivity.Email);
 
+        sign_out = findViewById(R.id.log_out);
         sign_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signOut();
             }
-
         });
     }
+
     private void signOut() {
         Toast.makeText(AdminActivity.this, "Succesfully signed out", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(AdminActivity.this, LoginActivity.class));

@@ -19,14 +19,13 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
 public class LoginActivity extends AppCompatActivity {
-
     int RC_SIGN_IN = 0;
     SignInButton signInButton;
     GoogleSignInClient mGoogleSignInClient;
     boolean HrEmail;
     boolean adminEmail;
     View FindEmail;
-    String Email;
+    static String Email;
     View FindPassword;
     String Password;
 
