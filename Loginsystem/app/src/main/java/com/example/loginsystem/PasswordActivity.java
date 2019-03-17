@@ -21,10 +21,7 @@ import com.google.android.gms.tasks.Task;
 public class PasswordActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignClient;
     Button sign_out;
-    TextView nameTV;
     TextView emailTV;
-    TextView idTV;
-    ImageView photoIV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +29,7 @@ public class PasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_password);
 
         sign_out = findViewById(R.id.log_out);
-        nameTV = findViewById(R.id.name);
         emailTV = findViewById(R.id.email);
-        idTV = findViewById(R.id.id);
-        photoIV = findViewById(R.id.photo);
 
         /* Configure sign-in to request the user's ID, email address, and basic*/
         /* profile. ID and basic profile are included in DEFAULT_SIGN_IN.*/
@@ -50,18 +44,10 @@ public class PasswordActivity extends AppCompatActivity {
         String personEmail = acct.getEmail();
         if (acct != null && personEmail.endsWith("@hr.nl")) {
             String personName = acct.getDisplayName();
-            String personGivenName = acct.getGivenName();
-            String personFamilyName = acct.getFamilyName();
             personEmail = acct.getEmail();
-            String personId = acct.getId();
-            Uri personPhoto = acct.getPhotoUrl();
 
-            nameTV.setText("Name: "+personName);
             emailTV.setText("Email: "+personEmail);
-            idTV.setText("ID: "+personId);
-            Glide.with(this).load(personPhoto).into(photoIV);
         }
-
 
         sign_out.setOnClickListener(new View.OnClickListener() {
             @Override

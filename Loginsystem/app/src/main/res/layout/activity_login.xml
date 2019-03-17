@@ -56,6 +56,18 @@
                     android:textColor="#FCFAFA"
                     android:textSize="36sp" />
 
+                <TextView
+                        android:id="@+id/textLogin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/imageView"
+                        android:layout_marginTop="60dp"
+                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
+                        android:text="Log in met je Hogeschool account"
+                        android:textColor="#FCFAFA"
+                        android:textSize="20sp" />
+
                 <FrameLayout
                     android:id="@+id/frameLayout2"
                     android:layout_width="304dp"
@@ -77,18 +89,6 @@
                     android:background="#FCF8F8">
 
                 </FrameLayout>
-            <TextView
-                    android:id="@+id/Text4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="335dp"
-                    android:paddingBottom="10dp"
-                    android:textSize="15sp"
-                    android:text="Log in met uw hogeschool account"
-                    android:layout_centerHorizontal="true"
-
-
-
 />
                 <TextView
                     android:id="@+id/textView3"
