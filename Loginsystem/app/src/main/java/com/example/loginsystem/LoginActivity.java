@@ -71,11 +71,8 @@ public class LoginActivity extends AppCompatActivity {
         else if (Email.equals("techlabapp00@gmail.com")) {
             Toast.makeText(LoginActivity.this, "Fout wachtwoord", Toast.LENGTH_SHORT).show();
         }
-        else if (Email.equals("0960882@hr.nl") && (Password.equals("test123"))){
-            startActivity(new Intent(LoginActivity.this, UserActivity.class));
-        }
-        else if (!Email.endsWith("@hr.nl")){
-            Toast.makeText(LoginActivity.this, "U moet met uw Hr account inloggen", Toast.LENGTH_SHORT).show();
+        else{
+            Toast.makeText(LoginActivity.this, "Foute email", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -107,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 HrEmail = true;
                 /* Signed in successfully, show authenticated UI. */
-                startActivity(new Intent(LoginActivity.this, PasswordActivity.class));
+                startActivity(new Intent(LoginActivity.this, UserActivity.class));
             } else {
                 Toast.makeText(LoginActivity.this, "U moet met uw Hr account inloggen", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, LoginActivity.class));
@@ -129,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
          */
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account != null && HrEmail) {
-            startActivity(new Intent(LoginActivity.this, PasswordActivity.class));
+            startActivity(new Intent(LoginActivity.this, UserActivity.class));
         }
         super.onStart();
     }
