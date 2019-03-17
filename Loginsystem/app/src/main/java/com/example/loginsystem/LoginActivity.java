@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     SignInButton signInButton;
     GoogleSignInClient mGoogleSignInClient;
     boolean HrEmail;
-    boolean  adminEmail;
+    boolean adminEmail;
     String Email;
     View FindEmail;
 
@@ -59,10 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         if (Email.equals("techlabapp00@gmail.com")){
         adminEmail=true;
             startActivity(new Intent(LoginActivity.this, AdminActivity.class));
-
-
-    }
-
+        }
     }
 
 
@@ -99,12 +96,13 @@ public class LoginActivity extends AppCompatActivity {
 
 
         else{
-                Toast.makeText(LoginActivity.this, "You are not a student", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LoginActivity.this, LoginActivity.class));
-                mGoogleSignInClient.signOut();
+            Toast.makeText(LoginActivity.this, "You are not a student", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(LoginActivity.this, LoginActivity.class));
+            mGoogleSignInClient.signOut();
             }
 
-        } catch (ApiException e) {
+        }
+        catch (ApiException e) {
             /* The ApiException status code indicates the detailed failure reason. */
             /* Please refer to the GoogleSignInStatusCodes class reference for more information.*/
             Log.w("Google Sign In Error", "signInResult:failed code="  + e.getStatusCode());
@@ -122,7 +120,8 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(LoginActivity.this, UserActivity.class));
         }
         else if(adminEmail){
-            startActivity(new Intent(LoginActivity.this, AdminActivity.class));}
+            startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+        }
         super.onStart();
     }
 }
