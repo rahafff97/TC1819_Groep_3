@@ -25,8 +25,11 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     boolean HrEmail;
     boolean adminEmail;
-    String Email;
     View FindEmail;
+    String Email;
+    View FindPassword;
+    String Password;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +57,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void inloggen (View view){
-        FindEmail= findViewById(R.id.editText);
-        Email= ((EditText) FindEmail).getText().toString();
-        if (Email.equals("techlabapp00@gmail.com")){
+        FindEmail = findViewById(R.id.editText);
+        Email = ((EditText) FindEmail).getText().toString();
+        FindPassword = findViewById(R.id.editText2);
+        Password = ((EditText) FindPassword).getText().toString();
+
+        if (Email.equals("techlabapp00@gmail.com") && (Password.equals("test123"))){
         adminEmail=true;
             startActivity(new Intent(LoginActivity.this, AdminActivity.class));
         }
