@@ -15,7 +15,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     int RC_SIGN_IN = 0;
     SignInButton signInButton;
@@ -75,11 +75,11 @@ public class MainActivity extends AppCompatActivity {
 
             HrEmail = true;
                 /* Signed in successfully, show authenticated UI. */
-            startActivity(new Intent(MainActivity.this, Main2Activity.class));
+            startActivity(new Intent(LoginActivity.this, UserActivity.class));
         }
         else{
-                Toast.makeText(MainActivity.this, "You are not a student", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, MainActivity.class));
+                Toast.makeText(LoginActivity.this, "You are not a student", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(LoginActivity.this, LoginActivity.class));
                 mGoogleSignInClient.signOut();
             }
 
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             /* The ApiException status code indicates the detailed failure reason. */
             /* Please refer to the GoogleSignInStatusCodes class reference for more information.*/
             Log.w("Google Sign In Error", "signInResult:failed code="  + e.getStatusCode());
-            Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
          */
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if(account != null && HrEmail) {
-            startActivity(new Intent(MainActivity.this, Main2Activity.class));
+            startActivity(new Intent(LoginActivity.this, UserActivity.class));
         }
         super.onStart();
     }

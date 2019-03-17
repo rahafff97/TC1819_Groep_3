@@ -18,7 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-public class Main2Activity extends AppCompatActivity {
+public class UserActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignClient;
     Button sign_out;
     TextView nameTV;
@@ -45,7 +45,7 @@ public class Main2Activity extends AppCompatActivity {
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignClient = GoogleSignIn.getClient(this, gso);
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(Main2Activity.this);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(UserActivity.this);
         //check Hr account or not
         String personEmail = acct.getEmail();
         if (acct != null && personEmail.endsWith("@hr.nl")) {
@@ -76,8 +76,8 @@ public class Main2Activity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(Main2Activity.this, "Succesfully signed out", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Main2Activity.this, MainActivity.class));
+                        Toast.makeText(UserActivity.this, "Succesfully signed out", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(UserActivity.this, LoginActivity.class));
                     }
                 });
     }
