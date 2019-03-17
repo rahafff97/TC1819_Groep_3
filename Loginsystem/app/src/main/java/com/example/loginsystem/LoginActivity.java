@@ -1,10 +1,13 @@
 package com.example.loginsystem;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -21,6 +24,9 @@ public class LoginActivity extends AppCompatActivity {
     SignInButton signInButton;
     GoogleSignInClient mGoogleSignInClient;
     boolean HrEmail;
+    boolean  adminEmail;
+    String Email;
+    View FindEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,18 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    public void inloggen (View view){
+        FindEmail= findViewById(R.id.editText);
+        Email= ((EditText) FindEmail).getText().toString();
+        if (Email.equals("techlabapp00@gmail.com")){
+        adminEmail=true;
+            startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+
+
+    }
+
+    }
+
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -70,13 +88,16 @@ public class LoginActivity extends AppCompatActivity {
 
         try {//check Hr account or not
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+
             String personEmail = account.getEmail();
             if (personEmail != null && personEmail.endsWith("@hr.nl")) {
 
             HrEmail = true;
                 /* Signed in successfully, show authenticated UI. */
             startActivity(new Intent(LoginActivity.this, UserActivity.class));
-        }
+            }
+
+
         else{
                 Toast.makeText(LoginActivity.this, "You are not a student", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, LoginActivity.class));
@@ -100,7 +121,8 @@ public class LoginActivity extends AppCompatActivity {
         if(account != null && HrEmail) {
             startActivity(new Intent(LoginActivity.this, UserActivity.class));
         }
+        else if(adminEmail){
+            startActivity(new Intent(LoginActivity.this, AdminActivity.class));}
         super.onStart();
     }
-
 }

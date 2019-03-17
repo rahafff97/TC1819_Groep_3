@@ -134,6 +134,7 @@
                     android:background="#860A0A"
                     android:text="Login"
                     android:textColor="#FDFBFB"
+                    android:onClick="inloggen"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editText2" />
