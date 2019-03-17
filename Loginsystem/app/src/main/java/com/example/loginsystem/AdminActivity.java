@@ -33,6 +33,7 @@ public class AdminActivity extends AppCompatActivity {
             public void onClick(View v) {
                 signOut();
             }
+
         });
     }
     private void signOut() {

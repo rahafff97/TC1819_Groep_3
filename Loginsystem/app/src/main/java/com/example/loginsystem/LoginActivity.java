@@ -66,6 +66,16 @@ public class LoginActivity extends AppCompatActivity {
         adminEmail=true;
             startActivity(new Intent(LoginActivity.this, AdminActivity.class));
         }
+        else if (Email.equals("techlabapp00@gmail.com") && (Password.equals(""))){
+            Toast.makeText(LoginActivity.this, "Voer uw wachtwoord in", Toast.LENGTH_SHORT).show();
+
+        }
+        else if (Email.equals("techlabapp00@gmail.com"))
+        {
+            Toast.makeText(LoginActivity.this, "Fout wachtwoord", Toast.LENGTH_SHORT).show();
+
+
+        }
     }
 
 
@@ -102,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         else{
-            Toast.makeText(LoginActivity.this, "You are not a student", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "U moet met uw Hr account inloggen", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(LoginActivity.this, LoginActivity.class));
             mGoogleSignInClient.signOut();
             }
