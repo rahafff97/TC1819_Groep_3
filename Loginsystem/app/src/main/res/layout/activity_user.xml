@@ -5,77 +5,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UserActivity">
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="128dp"
-        android:layout_marginLeft="128dp"
-        android:layout_marginTop="244dp"
-        android:layout_marginEnd="128dp"
-        android:layout_marginRight="128dp"
-        android:layout_marginBottom="37dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/log_out"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/photo"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_gravity="center"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
             android:background="#000" />
 
         <TextView
             android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:text="Name: NAME HERE"
+            android:layout_below="@id/photo"
+            android:textAlignment="center"
             android:textColor="#860A0A"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/email"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_below="@id/name"
+            android:textAlignment="center"
             android:text="Email: EMAIL HERE"
             android:textColor="#860A0A"
             android:textSize="18sp" />
 
+
         <TextView
             android:id="@+id/id"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_below="@id/email"
+            android:textAlignment="center"
             android:text="ID: ID HERE"
             android:textColor="#860A0A"
             android:textSize="18sp" />
-    </LinearLayout>
 
     <Button
         android:id="@+id/log_out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="162dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="162dp"
-        android:layout_marginBottom="251dp"
+        android:layout_below="@id/id"
+        android:layout_marginTop="20dp"
         android:background="#860A0A"
         android:text="Sign out"
         android:textColor="#fff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+  />
+</RelativeLayout>
+
+</RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
