@@ -61,7 +61,11 @@ public class LoginActivity extends AppCompatActivity {
         FindPassword = findViewById(R.id.editText2);
         Password = ((EditText) FindPassword).getText().toString();
 
-        if (Email.equals("techlabapp00@gmail.com") && (Password.equals("test123"))) {
+
+        if (Email != null && Email.endsWith("@hr.nl")) {
+            signIn();
+        }
+        else if (Email.equals("techlabapp00@gmail.com") && (Password.equals("test123"))) {
             adminEmail = true;
             startActivity(new Intent(LoginActivity.this, AdminActivity.class));
         }
