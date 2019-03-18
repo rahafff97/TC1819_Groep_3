@@ -2,10 +2,17 @@ package com.example.borrow;
 
 public class User {
 
-    private String ID;
     private String UserName;
-    private String UserTrust;
-    private int UserAge;
+    public String mark = "Mark";
+
+    public User(String mark){
+        UserName = mark;
 
 
+    }
+
+
+    public String getUser() {
+        return UserName;
+    }
 }
