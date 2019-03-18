@@ -63,11 +63,14 @@ public class LoginActivity extends AppCompatActivity {
 
 
         if (Email != null && Email.endsWith("@hr.nl")) {
+            Toast.makeText(LoginActivity.this, "Kies uw Hogeschool email", Toast.LENGTH_SHORT).show();
             signIn();
         }
         else if (Email.equals("techlabapp00@gmail.com") && (Password.equals("test123"))) {
             adminEmail = true;
+
             startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+
         }
         else if (Email.equals("techlabapp00@gmail.com") && (Password.equals(""))) {
             Toast.makeText(LoginActivity.this, "Voer uw wachtwoord in", Toast.LENGTH_SHORT).show();
