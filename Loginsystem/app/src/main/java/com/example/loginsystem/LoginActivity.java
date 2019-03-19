@@ -1,10 +1,13 @@
 package com.example.loginsystem;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -15,16 +18,22 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-public class MainActivity extends AppCompatActivity {
-
+public class LoginActivity extends AppCompatActivity {
     int RC_SIGN_IN = 0;
     SignInButton signInButton;
     GoogleSignInClient mGoogleSignInClient;
+    boolean HrEmail;
+    boolean adminEmail;
+    View FindEmail;
+    static String Email;
+    View FindPassword;
+    String Password;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         /* Initializing Views*/
         signInButton = findViewById(R.id.sign_in_button);
@@ -46,6 +55,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void inloggen(View view) {
+        FindEmail = findViewById(R.id.editText);
+        Email = ((EditText) FindEmail).getText().toString();
+        FindPassword = findViewById(R.id.editText2);
+        Password = ((EditText) FindPassword).getText().toString();
+
+        if ((Email.equals("0960882@hr.nl") || Email.equals("0961065@hr.nl") || Email.equals("0961988@hr.nl") || Email.equals("0965662@hr.nl") || Email.equals("0971084@hr.nl")) && Password.equals("test123")) {
+            Toast.makeText(LoginActivity.this, "Kies uw Hogeschool email", Toast.LENGTH_SHORT).show();
+            signIn();
+        }
+        else if (Email.equals("techlabapp00@gmail.com") && (Password.equals("test123"))) {
+            adminEmail = true;
+            startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+        }
+        else if ((Email.equals("techlabapp00@gmail.com") || Email.equals("0960882@hr.nl") || Email.equals("0961065@hr.nl") || Email.equals("0961988@hr.nl") || Email.equals("0965662@hr.nl") || Email.equals("0971084@hr.nl")) && Password.equals("")) {
+            Toast.makeText(LoginActivity.this, "Voer uw wachtwoord in", Toast.LENGTH_SHORT).show();
+        }
+        else if ((Email.equals("techlabapp00@gmail.com") || Email.equals("0960882@hr.nl") || Email.equals("0961065@hr.nl") || Email.equals("0961988@hr.nl") || Email.equals("0965662@hr.nl") || Email.equals("0971084@hr.nl"))) {
+            Toast.makeText(LoginActivity.this, "Fout wachtwoord", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(LoginActivity.this, "Foute email", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -66,16 +99,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
+
+        try {//check Hr account or not
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
-            /* Signed in successfully, show authenticated UI. */
-            startActivity(new Intent(MainActivity.this, Main2Activity.class));
+            String personEmail = account.getEmail();
+            if (personEmail != null && personEmail.endsWith("@hr.nl")) {
+
+                HrEmail = true;
+                /* Signed in successfully, show authenticated UI. */
+                startActivity(new Intent(LoginActivity.this, UserActivity.class));
+            } else {
+                Toast.makeText(LoginActivity.this, "U moet met uw Hr account inloggen", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(LoginActivity.this, LoginActivity.class));
+                mGoogleSignInClient.signOut();
+            }
+
         } catch (ApiException e) {
             /* The ApiException status code indicates the detailed failure reason. */
             /* Please refer to the GoogleSignInStatusCodes class reference for more information.*/
-            Log.w("Google Sign In Error", "signInResult:failed code="  + e.getStatusCode());
-            Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_LONG).show();
+            Log.w("Google Sign In Error", "signInResult:failed code=" + e.getStatusCode());
+            Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -85,10 +129,9 @@ public class MainActivity extends AppCompatActivity {
         the GoogleSignInAccount will be non-null
          */
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if(account != null) {
-            startActivity(new Intent(MainActivity.this, Main2Activity.class));
+        if (account != null && HrEmail) {
+            startActivity(new Intent(LoginActivity.this, UserActivity.class));
         }
         super.onStart();
     }
-
 }
