@@ -14,7 +14,7 @@ each time a new functionality with models gets added there will be a new 'migrat
 After setting up the database you are able to create a 'superuser', this can be seen as the admin of the web interface,
 this can be done by using the following command `python manage.py createsuperuser`, after using the command you will be 
 prompted to fill in a username, email and password.   
-**Note:** Before you run any of the commands, make sure you are inside of the project folder, e.g. the `TechLab/` folder, 
+**Note:** Before you run any of the commands, make sure you are inside of the project folder, i.e. the `TechLab/` folder, 
 at which the `requirement.txt`, `manage.py` and this file are located.
 ## Migrations
 After making changes to the database models you want the changes to take effect on the database, but before the database 
