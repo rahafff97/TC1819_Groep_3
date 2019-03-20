@@ -83,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+
     }
 
     @Override
@@ -109,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                 HrEmail = true;
                 /* Signed in successfully, show authenticated UI. */
                 startActivity(new Intent(LoginActivity.this, UserActivity.class));
+                finish();
             } else {
                 Toast.makeText(LoginActivity.this, "U moet met uw Hr account inloggen", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, LoginActivity.class));
@@ -129,7 +131,7 @@ public class LoginActivity extends AppCompatActivity {
         the GoogleSignInAccount will be non-null
          */
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if (account != null && HrEmail) {
+        if (account != null) {
             startActivity(new Intent(LoginActivity.this, UserActivity.class));
         }
         super.onStart();
