@@ -86,32 +86,6 @@ public class LoginActivity extends AppCompatActivity {
 
        }
 
-
-
-
-
-//        FindEmail = findViewById(R.id.Gebruiksnaam);
-//        Email = ((EditText) FindEmail).getText().toString();
-//        FindPassword = findViewById(R.id.Password);
-//        Password = ((EditText) FindPassword).getText().toString();
-//
-//        if ((Email.equals("0960882@hr.nl") || Email.equals("0961065@hr.nl") || Email.equals("0961988@hr.nl") || Email.equals("0965662@hr.nl") || Email.equals("0971084@hr.nl")) && Password.equals("test123")) {
-//            Toast.makeText(LoginActivity.this, "Kies uw Hogeschool email", Toast.LENGTH_SHORT).show();
-//            signIn();
-//        }
-//        else if (Email.equals("techlabapp00@gmail.com") && (Password.equals("test123"))) {
-//            adminEmail = true;
-//            startActivity(new Intent(LoginActivity.this, AdminActivity.class));
-//        }
-//        else if ((Email.equals("techlabapp00@gmail.com") || Email.equals("0960882@hr.nl") || Email.equals("0961065@hr.nl") || Email.equals("0961988@hr.nl") || Email.equals("0965662@hr.nl") || Email.equals("0971084@hr.nl")) && Password.equals("")) {
-//            Toast.makeText(LoginActivity.this, "Voer uw wachtwoord in", Toast.LENGTH_SHORT).show();
-//        }
-//        else if ((Email.equals("techlabapp00@gmail.com") || Email.equals("0960882@hr.nl") || Email.equals("0961065@hr.nl") || Email.equals("0961988@hr.nl") || Email.equals("0965662@hr.nl") || Email.equals("0971084@hr.nl"))) {
-//            Toast.makeText(LoginActivity.this, "Fout wachtwoord", Toast.LENGTH_SHORT).show();
-//        }
-//        else{
-//            Toast.makeText(LoginActivity.this, "Foute email", Toast.LENGTH_SHORT).show();
-//        }
     }
 
     private void signIn() {
