@@ -13,15 +13,18 @@ class Item(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
 
 
-class Electronic(Item):
+class Book(Item):
     title = models.CharField(max_length=128)
     writers = models.CharField(max_length=128)
     isbn = models.CharField(max_length=128)
     publisher = models.CharField(max_length=128)
     stock = models.IntegerField()
 
+class Writer(Book):
+    name = models.CharField(max_length=128)
+ 
 
-class Book(Item):
+class Electronic(Item):
     product_id = models.CharField(max_length=64)
     manufacturer = models.CharField(max_length=128)
     category = models.CharField(max_length=128)
@@ -35,3 +38,5 @@ class BorrowItem(models.Model):
     user = models.ForeignKey(User, related_name="borrow_item_item", on_delete=models.CASCADE)
     borrow_date = models.DateTimeField()
     return_date = models.DateTimeField()
+    hand_in_date = models.DateTimeField()
+
