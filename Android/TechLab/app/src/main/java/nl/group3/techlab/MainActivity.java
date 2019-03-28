@@ -1,8 +1,8 @@
 package nl.group3.techlab;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,9 +10,9 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-        EditText eItem, eItemcat, eItemdes, eItemq;
-        Button btnAdd, btnView;
-        DatabaseHelper myDB;
+    EditText eItem, eItemcat, eItemdes, eItemq;
+    Button btnAdd, btnView;
+    DatabaseHelper myDB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         btnView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,ViewItemContents.class);
+                Intent intent = new Intent(MainActivity.this, ViewItemContents.class);
                 startActivity(intent);
             }
         });
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void AddData(String Item, String Categorie, String Description, int fQuan){
         boolean insertData = myDB.addData(Item,Categorie,Description,fQuan);
-        if (insertData == true){
+        if (insertData){
             Toast.makeText(MainActivity.this, "Item has been added", Toast.LENGTH_LONG).show();
         }else{
             Toast.makeText(MainActivity.this, "Adding Item Failed please check your connection", Toast.LENGTH_LONG).show();
