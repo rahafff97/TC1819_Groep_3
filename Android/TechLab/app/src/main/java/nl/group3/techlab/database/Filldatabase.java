@@ -1,7 +1,7 @@
 package nl.group3.techlab.database;
 
 
-import com.example.borrow.models.User;
+import nl.group3.techlab.models.User;
 
 
 public class Filldatabase {

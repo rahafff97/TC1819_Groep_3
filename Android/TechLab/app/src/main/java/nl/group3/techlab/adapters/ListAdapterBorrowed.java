@@ -7,7 +7,6 @@ package nl.group3.techlab.adapters;
         import android.widget.ArrayAdapter;
         import android.widget.TextView;
 
-
         import nl.group3.techlab.BorrowItem;
         import nl.group3.techlab.R;
 

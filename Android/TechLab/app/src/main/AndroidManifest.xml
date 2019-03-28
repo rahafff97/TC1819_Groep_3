@@ -15,8 +15,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <activity android:name="models.ViewItemContents"></activity>
-            <activity android:name="models.EditItemContents"></activity>
+            <activity android:name=".nl.group3.techlab.view.ViewItemContents"></activity>
+            <activity android:name="nl.group3.techlab.EditItemContents"></activity>
         </activity>
     </application>
 

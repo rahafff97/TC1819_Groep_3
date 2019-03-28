@@ -1,5 +1,7 @@
 package nl.group3.techlab;
 
+import java.util.Date;
+
 public class BorrowItem {
     public String firstName;
     public String ItemName;
@@ -18,9 +20,5 @@ public class BorrowItem {
     public String getFirstName() {
         return firstName;
     }
-
-
-
-
 
 }

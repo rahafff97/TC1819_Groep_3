@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import nl.group3.techlab.database.DatabaseHelper;
+import nl.group3.techlab.view.ViewItemContents;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText eItem, eItemcat, eItemdes, eItemq;
