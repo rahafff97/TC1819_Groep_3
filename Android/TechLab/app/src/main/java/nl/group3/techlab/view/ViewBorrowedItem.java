@@ -19,7 +19,6 @@ import nl.group3.techlab.database.DatabaseHelper;
 
 import java.util.ArrayList;
 
-
 public class ViewBorrowedItem extends AppCompatActivity {
 
     DatabaseHelper myDB;

@@ -25,7 +25,6 @@ public class EditItemContents extends AppCompatActivity {
     private int selectedID;
     private int selectedquan;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstancesState) {
         super.onCreate(savedInstancesState);
@@ -99,6 +98,28 @@ public class EditItemContents extends AppCompatActivity {
 
             }
         });
+
+        Borrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                int fQuan = Integer.parseInt(eItemq.getText().toString());
+
+//                if (fQuan != 0) {
+//                    myDB.insertBorrow(selectedID);
+                myDB.addBorrow(selectedID);
+
+                toastMessage("Item has been borrowed");
+//                }
+//                else{
+//                    toastMessage("Item is not available");
+//
+//                }
+
+
+
+            }
+        });
+
 
 
         /*short statement for toast to create quick toast*/

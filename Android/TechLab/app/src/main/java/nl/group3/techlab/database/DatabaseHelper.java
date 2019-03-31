@@ -58,6 +58,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //
 //                db.execSQL(USER_TABLE);
 
+        //naam tabl order_data
+        String ORDER_TABLE = "CREATE TABLE " + TABLE_ORDER +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "ID_ITEM INTEGER," +
+                " CONSTRAINT fk_" + TABLE_ITEM + " FOREIGN KEY ("+COL10+") REFERENCES "+TABLE_ITEM+"("+COL1+"))";
+        //ID_ORDER (pk)
+        //ID (fk) Pimary from table item
 
         //naam tabl order_data
         String ORDER_TABLE = "CREATE TABLE " + TABLE_ORDER +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
