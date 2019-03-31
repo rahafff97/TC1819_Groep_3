@@ -7,7 +7,6 @@ package nl.group3.techlab.adapters;
         import android.widget.ArrayAdapter;
         import android.widget.TextView;
 
-
         import nl.group3.techlab.BorrowItem;
         import nl.group3.techlab.R;
 
@@ -32,20 +31,20 @@ public class ListAdapterBorrowed extends ArrayAdapter<BorrowItem> {
         BorrowItem borrowItem = borrowItemArrayList.get(position);
 
         if(borrowItem != null){
-            TextView ItemName = (TextView) convertView.findViewById(R.id.eItem);
-            TextView UserName = (TextView) convertView.findViewById(R.id.UserName);
+            TextView IDName = (TextView) convertView.findViewById(R.id.ID);
+//            TextView UserName = (TextView) convertView.findViewById(R.id.UserName);
 
 
 
 
-            if(ItemName != null){
-                ItemName.setText((borrowItem.getItem()));
-
-            }
-            if(UserName != null){
-                UserName.setText((borrowItem.getFirstName()));
+            if(IDName != null){
+                IDName.setText((borrowItem.getID()));
 
             }
+//            if(UserName != null){
+//                UserName.setText((borrowItem.getFirstName()));
+//
+//            }
         }
         return convertView;
     }

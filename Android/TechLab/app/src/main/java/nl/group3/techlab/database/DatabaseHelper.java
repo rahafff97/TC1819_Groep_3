@@ -12,6 +12,8 @@ import nl.group3.techlab.models.User;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+
+
     public static final String ITEM_DB = "items.db";
     public static final String TABLE_ITEM = "items_data";
     public static final String COL1 = "ID";
@@ -21,15 +23,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL5 = "ITEMQUANTITY";
 
 
-    public static final String USER_DB = "user.db";
-    public static final String TABLE_USER = "user_data";
-    public static final String COL6 = "ID_USER";
-    public static final String COL7 = "FIRST_NAME";
-    public static final String COL8 = "LAST_NAME";
+//    public static final String USER_DB = "user.db";
+//    public static final String TABLE_USER = "user_data";
+//    public static final String COL6 = "ID_USER";
+//    public static final String COL7 = "FIRST_NAME";
+//    public static final String COL8 = "LAST_NAME";
 
     public static final String ORDER_DB = "order.db";
     public static final String TABLE_ORDER = "order_data";
-    public static final String COL9 = "ID_ORDER";
+    public static final String COL9 = "ID"; //pk
+    public static final String COL10 = "ID_ITEM"; //fk
 
 
 
@@ -42,27 +45,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TAG = "DatabaseHelper";
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String ITEM_TABLE = "CREATE TABLE " + TABLE_ITEM + " (IDUSER INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        String ITEM_TABLE = "CREATE TABLE " + TABLE_ITEM + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 " ITEM TEXT, ITEMCATEGORIE TEXT, ITEMDESCRIPTION TEXT, ITEMQUANTITY INT)";
         db.execSQL(ITEM_TABLE);
 
 
 
-        String USER_TABLE = "CREATE TABLE "
-                + TABLE_USER +
-                " (ID_USER INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                " FIRST_NAME TEXT,LAST_NAME TEXT)";
+//        String USER_TABLE = "CREATE TABLE "
+//                + TABLE_USER +
+//                " (ID_USER INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//                " FIRST_NAME TEXT,LAST_NAME TEXT)";
+//
+//                db.execSQL(USER_TABLE);
 
-                db.execSQL(USER_TABLE);
+
+        //naam tabl order_data
+        String ORDER_TABLE = "CREATE TABLE " + TABLE_ORDER +" (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "ID_ITEM INTEGER," +
+                " CONSTRAINT fk_" + TABLE_ITEM + " FOREIGN KEY ("+COL10+") REFERENCES "+TABLE_ITEM+"("+COL1+"))";
+        //ID_ORDER (pk)
+        //ID (fk) Pimary from table item
 
 
-        String ORDER_TABLE = "CREATE TABLE " +
-                 TABLE_ORDER +
-                " (ID_ORDER INTEGER PRIMARY KEY AUTOINCREMENT, " +
-
-                " CONSTRAINT fk_" + TABLE_ITEM + " FOREIGN KEY ("+ITEM_DB+") REFERENCES "+TABLE_ITEM+"("+COL2+"), " +
-
-                " CONSTRAINT fk_" + TABLE_USER + "  FOREIGN KEY ("+USER_DB+") REFERENCES "+TABLE_USER+"("+COL7+"))";
+        //     " CONSTRAINT fk_" + TABLE_USER + "  FOREIGN KEY ("+USER_DB+") REFERENCES "+TABLE_USER+"("+COL7+"))";
         db.execSQL(ORDER_TABLE);
 
 
@@ -72,7 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF  EXISTS " + TABLE_ITEM);
-        db.execSQL("DROP TABLE IF  EXISTS " + TABLE_USER);
+//        db.execSQL("DROP TABLE IF  EXISTS " + TABLE_USER);
         db.execSQL("DROP TABLE IF  EXISTS " + TABLE_ORDER);
         onCreate(db);
     }
@@ -98,23 +103,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
         }
     }
-    public void InsertUser(User user){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-
-        contentValues.put(COL7, user.getFirstName());
-        contentValues.put(COL8, user.getLastName());
-
-        db.insert(TABLE_USER, null, contentValues);
-    }
+//    public void InsertUser(User user){
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues contentValues = new ContentValues();
+//
+//        contentValues.put(COL7, user.getFirstName());
+//        contentValues.put(COL8, user.getLastName());
+//
+//        db.insert(TABLE_USER, null, contentValues);
+//    }
 
 
     public Cursor getListContents() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor data = db.rawQuery("SELECT * FROM " + TABLE_ITEM, null);
+
         return data;
     }
-
 
 
 
@@ -140,10 +145,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public void updateName(String newName, int id, String oldName){
+    public void updateName(String newName, int ID, String oldName){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "UPDATE " + TABLE_ITEM + " SET " + COL2 +
-                " = '" + newName + "' WHERE " + COL1 + " = '" + id + "'" +
+                " = '" + newName + "' WHERE " + COL1 + " = '" + ID + "'" +
                 " AND " + COL2 + " = '" + oldName + "'";
         Log.d(TAG, "updateName: query: " + query);
         Log.d(TAG, "updateName: Setting name to " + newName);
@@ -158,17 +163,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
+//public void insertBorrow(int fID){
+//    SQLiteDatabase db = this.getWritableDatabase();
+//    ContentValues contentValues = new ContentValues();
+//    contentValues.put(COL1, fID);
+//
+//
+//    db.insert(TABLE_ORDER, null, contentValues);
+//}
 
+    public void addBorrow(int IDss) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "INSERT INTO order_data(ID_ITEM) VALUES("+IDss+")";
+        Log.d(TAG, query);
+//        String query1 = "UPDATE " + TABLE_ITEM + " SET " + COL5 +
+//                " = '" + NewQuan + "' WHERE " + COL1 + " = '" + ID + "'" +
+//                " AND " + COL5 + " = '" + -1 + "'";
 
-    public void addBorrow(int ID,String Item, String MARK ) {
-            ContentValues contentValues = new ContentValues();
-            SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT FROM " + TABLE_ITEM + " WHERE "
-                + COL1 + " = '" + ID + " INSERT INTO " +   "'";
-
-
+        //   Log.d(TAG, ": adding " + name + " to order.");
+//        db.execSQL(query1);
         db.execSQL(query);
-
     }
 
     public Cursor GetBorrowedContents() {
@@ -178,13 +192,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public Cursor getBorrowedID(String ID_ORDER){
+    public Cursor getBorrowedID(int ID_ORDER){
         Log.d(TAG, "In fucntie getBorrowedID!");
 
         Cursor data = null;
         try {
             SQLiteDatabase db = this.getWritableDatabase();
-            String query = "SELECT " + COL2 + " FROM " + TABLE_ORDER +
+            String query = "SELECT " + COL9 + " FROM " + TABLE_ORDER +
                     " WHERE " + ID_ORDER + " = '" + ID_ORDER + "'";
 
             Log.d(TAG, "CHECK query: " + query);

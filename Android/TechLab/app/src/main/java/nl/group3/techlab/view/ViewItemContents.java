@@ -11,21 +11,22 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import nl.group3.techlab.BorrowItem;
-import nl.group3.techlab.EditItemContents;
-import nl.group3.techlab.R;
-import nl.group3.techlab.adapters.ListAdapterBorrowed;
-import nl.group3.techlab.database.DatabaseHelper;
-
 import java.util.ArrayList;
 
-public class ViewBorrowedItem extends AppCompatActivity {
+
+import nl.group3.techlab.EditItemContents;
+import nl.group3.techlab.R;
+import nl.group3.techlab.adapters.FourColumn_ListAdapter;
+import nl.group3.techlab.database.DatabaseHelper;
+import nl.group3.techlab.models.Item;
+
+public class ViewItemContents extends AppCompatActivity {
 
     DatabaseHelper myDB;
-    ArrayList<BorrowItem> BorrowedList;
+    ArrayList<Item> itemList;
     ListView listView;
-    BorrowItem borrowItem;
-    private static final String TAG = "ListAdapterBorrowed";
+    Item item;
+    private static final String TAG = "FourColumn_ListAdapter";
 
 
     @Override
@@ -36,18 +37,18 @@ public class ViewBorrowedItem extends AppCompatActivity {
 
         myDB = new DatabaseHelper(this);
 
-        BorrowedList = new ArrayList<>();
-        Cursor data = myDB.GetBorrowedContents();
+        itemList = new ArrayList<>();
+        Cursor data = myDB.getListContents();
         int numRows = data.getCount();
         if (numRows == 0){
-            Toast.makeText(ViewBorrowedItem.this, "Database is empty", Toast.LENGTH_LONG).show();
+            Toast.makeText(ViewItemContents.this, "Database is empty", Toast.LENGTH_LONG).show();
         }else{
 
             while(data.moveToNext()){
-                borrowItem = new BorrowItem( data.getInt(1));
-                BorrowedList.add(borrowItem);
+                item = new Item( data.getString(1),data.getString(2),data.getString(3),data.getInt(4) );
+                itemList.add(item);
             }
-            ListAdapterBorrowed adapter = new ListAdapterBorrowed(this, R.layout.borrowed_items, BorrowedList);
+            FourColumn_ListAdapter adapter = new FourColumn_ListAdapter(this, R.layout.content_adapter_view,itemList);
             listView =  findViewById(R.id.listView);
             listView.setAdapter(adapter);
         }
@@ -56,16 +57,16 @@ public class ViewBorrowedItem extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
 
 
-                BorrowItem borrowItem  = (BorrowItem)adapterView.getItemAtPosition(i);
-                int borrowText = borrowItem.getID();
+                Item item  = (Item)adapterView.getItemAtPosition(i);
+                String itemText = item.getItem();
 
-                Toast.makeText(view.getContext(), "clicked on item[" + borrowText + "]",
+                Toast.makeText(view.getContext(), "clicked on item[" + itemText + "]",
 
                         Toast.LENGTH_SHORT).show();
 
-                Log.d(TAG, "onItemClick You clicked on " + borrowText);
+                Log.d(TAG, "onItemClick You clicked on " + itemText);
 
-                Cursor data = myDB.getBorrowedID(borrowText);
+                Cursor data = myDB.getItemID(itemText);
                 int ID = -1;
 
 
@@ -74,9 +75,9 @@ public class ViewBorrowedItem extends AppCompatActivity {
                 }
                 if (ID > -1){
                     Log.d(TAG, "onItemClick: The ID is: " + ID);
-                    Intent editScreenIntent = new Intent(ViewBorrowedItem.this, EditItemContents.class);
+                    Intent editScreenIntent = new Intent(ViewItemContents.this, EditItemContents.class);
                     editScreenIntent.putExtra("id", ID);
-                    editScreenIntent.putExtra("ITEM", borrowText );
+                    editScreenIntent.putExtra("ITEM", itemText);
                     startActivity(editScreenIntent);
 
                 }
@@ -86,8 +87,6 @@ public class ViewBorrowedItem extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
 }
