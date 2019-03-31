@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import nl.group3.techlab.database.DatabaseHelper;
+import nl.group3.techlab.view.ViewItemContents;
+/*home activity to add items*/
 public class MainActivity extends AppCompatActivity {
 
     EditText eItem, eItemcat, eItemdes, eItemq;
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         btnAdd = (Button) findViewById(R.id.btnAdd);
         myDB = new DatabaseHelper(this);
 
+        /*view the added items*/
         btnView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        /*add the filled in items in a row and checks if none of it is null*/
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -58,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    /*checks if the item has truly been added by seeing if its true or false.*/
     public void AddData(String Item, String Categorie, String Description, int fQuan){
         boolean insertData = myDB.addData(Item,Categorie,Description,fQuan);
         if (insertData){

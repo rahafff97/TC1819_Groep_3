@@ -11,11 +11,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.borrow.BorrowItem;
-import com.example.borrow.EditItemContents;
-import com.example.borrow.R;
-import com.example.borrow.adapters.ListAdapterBorrowed;
-import com.example.borrow.database.DatabaseHelper;
+import nl.group3.techlab.BorrowItem;
+import nl.group3.techlab.EditItemContents;
+import nl.group3.techlab.R;
+import nl.group3.techlab.adapters.ListAdapterBorrowed;
+import nl.group3.techlab.database.DatabaseHelper;
 
 import java.util.ArrayList;
 
@@ -45,7 +45,7 @@ public class ViewBorrowedItem extends AppCompatActivity {
         }else{
 
             while(data.moveToNext()){
-                borrowItem = new BorrowItem( data.getString(1),data.getString(2));
+                borrowItem = new BorrowItem( data.getInt(1));
                 BorrowedList.add(borrowItem);
             }
             ListAdapterBorrowed adapter = new ListAdapterBorrowed(this, R.layout.borrowed_items, BorrowedList);
@@ -58,7 +58,7 @@ public class ViewBorrowedItem extends AppCompatActivity {
 
 
                 BorrowItem borrowItem  = (BorrowItem)adapterView.getItemAtPosition(i);
-                String borrowText = borrowItem.getFirstName();
+                int borrowText = borrowItem.getID();
 
                 Toast.makeText(view.getContext(), "clicked on item[" + borrowText + "]",
 
@@ -77,7 +77,7 @@ public class ViewBorrowedItem extends AppCompatActivity {
                     Log.d(TAG, "onItemClick: The ID is: " + ID);
                     Intent editScreenIntent = new Intent(ViewBorrowedItem.this, EditItemContents.class);
                     editScreenIntent.putExtra("id", ID);
-                    editScreenIntent.putExtra("USER", borrowText);
+                    editScreenIntent.putExtra("ITEM", borrowText );
                     startActivity(editScreenIntent);
 
                 }

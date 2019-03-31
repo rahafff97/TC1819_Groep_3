@@ -15,8 +15,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <activity android:name="models.ViewItemContents"></activity>
-            <activity android:name="models.EditItemContents"></activity>
+            <activity android:name=".view.ViewItemContents"></activity>
+            <activity android:name=".view.ViewBorrowedItem"></activity>
+            <activity android:name=".EditItemContents"></activity>
         </activity>
     </application>
 
