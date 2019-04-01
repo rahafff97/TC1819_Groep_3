@@ -1,17 +1,27 @@
 package nl.group3.techlab.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
+import nl.group3.techlab.HandInConfirmation;
 import nl.group3.techlab.R;
 import nl.group3.techlab.models.BorrowItem;
+
+import static android.app.Activity.RESULT_OK;
 
 public class BorrowItemAdapter extends ArrayAdapter<BorrowItem> {
     public BorrowItemAdapter(Context context, ArrayList<BorrowItem> borrowItems) {
@@ -21,21 +31,40 @@ public class BorrowItemAdapter extends ArrayAdapter<BorrowItem> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        BorrowItem borrowItem = getItem(position);
+        final BorrowItem borrowItem = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_borrow_item, parent, false);
         }
-        // Lookup view for data population
-        TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
-        TextView tvEmail = (TextView) convertView.findViewById(R.id.tvEmail);
-        TextView tvPhone = (TextView) convertView.findViewById(R.id.tvPhone);
 
-        tvName.setText(borrowItem.getItem().getName());
-        tvEmail.setText(borrowItem.getUser().getFirstName() + " " + borrowItem.getUser().getLastName());
-        tvPhone.setText(borrowItem.getBorrowDate().toString());
-        // Populate the data into the template view using the data object
-        // Return the completed view to render on screen
+        final View reloadView = convertView;
+        // Lookup view for data population
+        TextView tvReturnDate = (TextView) convertView.findViewById(R.id.returnDate);
+        TextView tvObjectName = (TextView) convertView.findViewById(R.id.objectName);
+
+        Button bReturnButton = (Button) convertView.findViewById(R.id.returnButton);
+
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+
+        tvObjectName.setText(borrowItem.getItem().getName());
+        tvReturnDate.setText(format.format(borrowItem.getBorrowDate()));
+
+        if(borrowItem.getReturnDate().getTime() > new Date(1553893014504L).getTime())
+            bReturnButton.setText("Teruggebracht");
+        else
+            bReturnButton.setOnClickListener(new AdapterView.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("BorrowedItemObject", borrowItem);
+                    Intent i = new Intent(getContext(), HandInConfirmation.class);
+                    i.putExtras(bundle);
+                    getContext().startActivity(i);
+                    ((Activity)reloadView.getContext()).finish();
+
+                }
+            });
+
         return convertView;
     }
 }

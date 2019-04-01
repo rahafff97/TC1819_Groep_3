@@ -103,6 +103,7 @@ public class ItemDatabaseHelper extends SQLiteOpenHelper {
                         "%s INTEGER, " +
                         "%s INTEGER, " +
                         "%s INTEGER, " +
+
                         "CONSTRAINT fk_%s FOREIGN KEY (%s) " +
                         "REFERENCES %s(%s) " +
                         "ON UPDATE CASCADE " +
@@ -113,6 +114,7 @@ public class ItemDatabaseHelper extends SQLiteOpenHelper {
                 StockItemEntry.STOCK,
                 StockItemEntry.BROKEN,
                 StockItemEntry.ITEM_ID,
+
                 ItemEntry.TABLE_NAME,
                 StockItemEntry.ITEM_ID,
                 ItemEntry.TABLE_NAME,
@@ -130,7 +132,6 @@ public class ItemDatabaseHelper extends SQLiteOpenHelper {
                         "%s DATETIME, " +
                         "%s DATETIME NULL, " +
 
-
                         "CONSTRAINT fk_%s FOREIGN KEY (%s) " +
                         "REFERENCES %s(%s) " +
                         "ON UPDATE CASCADE " +
@@ -145,6 +146,7 @@ public class ItemDatabaseHelper extends SQLiteOpenHelper {
                 BorrowItemEntry.ID,
                 BorrowItemEntry.ITEM,
                 BorrowItemEntry.USER,
+
                 BorrowItemEntry.BORROW_DATE,
                 BorrowItemEntry.RETURN_DATE,
 
@@ -192,6 +194,7 @@ public class ItemDatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(BorrowItemEntry.USER, borrowItem.getUser().getId());
         contentValues.put(BorrowItemEntry.ITEM, borrowItem.getItem().getId());
         contentValues.put(BorrowItemEntry.BORROW_DATE, new Date().getTime());
+        contentValues.put(BorrowItemEntry.RETURN_DATE, new Date(0).getTime());
 
         db.insert(BorrowItemEntry.TABLE_NAME, null, contentValues);
     }
@@ -206,6 +209,40 @@ public class ItemDatabaseHelper extends SQLiteOpenHelper {
 
         db.insert(StockItemEntry.TABLE_NAME, null, contentValues);
     }
+
+    public boolean UpdateBorrowedItem(BorrowItem borrowItem) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(BorrowItemEntry.USER, borrowItem.getUser().getId());
+        contentValues.put(BorrowItemEntry.ITEM, borrowItem.getItem().getId());
+        contentValues.put(BorrowItemEntry.BORROW_DATE, borrowItem.getBorrowDate().getTime());
+        contentValues.put(BorrowItemEntry.RETURN_DATE, new Date().getTime());
+
+        boolean database = db.update(BorrowItemEntry.TABLE_NAME,
+                contentValues,
+                String.format("%s=?", BorrowItemEntry.ID),
+                new String[]{borrowItem.getId()+""}) > 0 ? true : false;
+        db.close();
+        return database;
+    }
+
+    public boolean UpdateStockItem(StockItem stockItem){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(StockItemEntry.ITEM_ID, stockItem.getItem().getId());
+        contentValues.put(StockItemEntry.STOCK, stockItem.getStock());
+        contentValues.put(StockItemEntry.BROKEN, stockItem.getBroken());
+
+        boolean database = db.update(StockItemEntry.TABLE_NAME,
+                contentValues,
+                String.format("%s=?", StockItemEntry.ITEM_ID),
+                new String[]{stockItem.getItem().getId()+""}) > 0 ? true : false;
+        db.close();
+        return database;
+    }
+
 
     public User getUser(String firstName, String lastName){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -286,13 +323,16 @@ public class ItemDatabaseHelper extends SQLiteOpenHelper {
         return names;
     }
 
-    public BorrowItem[] getBorrowedItems(User user){
+    public BorrowItem[] getBorrowedItems(User user, boolean just_borrowed){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor data = db.rawQuery(String.format("SELECT %s FROM %s WHERE %s=%s",
+        Cursor data = db.rawQuery(String.format("SELECT %s FROM %s WHERE %s=%s AND %s IS NULL",
                 "*",
                 BorrowItemEntry.TABLE_NAME,
                 BorrowItemEntry.USER,
-                user.getId()), null);
+                user.getId(),
+
+                just_borrowed ? BorrowItemEntry.RETURN_DATE : "NULL"
+        ), null);
 
         BorrowItem[] borrowedItems = new BorrowItem[data.getCount()];
 
@@ -301,9 +341,9 @@ public class ItemDatabaseHelper extends SQLiteOpenHelper {
 
             for (int i = 0; i < borrowedItems.length; i++) {
                 Item dbItem = getItemById(data.getInt(data.getColumnIndex(BorrowItemEntry.ITEM)));
-                borrowedItems[i] = new BorrowItem(dbItem, user, new Date(data.getLong(data.getColumnIndex(BorrowItemEntry.BORROW_DATE))), null);
+                borrowedItems[i] = new BorrowItem(data.getInt(data.getColumnIndex(BorrowItemEntry.ID)), dbItem, user, new Date(data.getLong(data.getColumnIndex(BorrowItemEntry.BORROW_DATE))), new Date(data.getLong(data.getColumnIndex(BorrowItemEntry.RETURN_DATE))));
 
-                Log.d("TEST", i + "");
+                Log.d("TEST", borrowedItems[i].getId() + " - " + borrowedItems[i].getBorrowDate() + " - " + borrowedItems[i].getReturnDate());
 
                 data.moveToNext();
             }
@@ -314,15 +354,16 @@ public class ItemDatabaseHelper extends SQLiteOpenHelper {
 
     public StockItem getStockItem(Item item){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor data = db.rawQuery(String.format("SELECT %s FROM %s WHERE %s(%s)=%s",
+        Cursor data = db.rawQuery(String.format("SELECT %s FROM %s WHERE %s=%s",
                 "*",
                 StockItemEntry.TABLE_NAME,
-                ItemEntry.TABLE_NAME,
                 ItemEntry.ID,
                 item.getId()), null);
 
-        if(data != null && data.getCount() > 0)
+        if(data != null && data.getCount() > 0) {
+            data.moveToFirst();
             return new StockItem(item, data.getInt(data.getColumnIndex(StockItemEntry.STOCK)), data.getInt(data.getColumnIndex(StockItemEntry.BROKEN)));
+        }
 
         return null;
     }

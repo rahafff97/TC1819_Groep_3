@@ -1,12 +1,13 @@
 package nl.group3.techlab.models;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
 /**
  *
  */
-public class User {
+public class User implements Serializable {
 
     int id;
     int role;
@@ -15,6 +16,7 @@ public class User {
     String lastName;
     String email;
     UUID apiKey;
+    int broken;
 
     public User(String firstName, String lastName){
         this.firstName = firstName;
@@ -55,4 +57,8 @@ public class User {
     public UUID getApiKey() {
         return apiKey;
     }
+
+    public int getBroken(){ return broken; }
+
+    public void addBroken(){ this.broken += 1; }
 }

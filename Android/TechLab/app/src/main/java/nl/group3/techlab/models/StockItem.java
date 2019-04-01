@@ -1,6 +1,8 @@
 package nl.group3.techlab.models;
 
-public class StockItem {
+import java.io.Serializable;
+
+public class StockItem implements Serializable {
     Item item;
     int stock;
     int broken;
@@ -21,5 +23,13 @@ public class StockItem {
 
     public int getBroken() {
         return broken;
+    }
+
+    public void addOneStock() {
+        this.stock += 1;
+    }
+
+    public void addOneBroken() {
+        this.broken += 1;
     }
 }

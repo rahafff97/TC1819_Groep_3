@@ -14,17 +14,17 @@ public class FillDatabase {
     public static void FillDatabaseWithTestData(ItemDatabaseHelper db){
 
 
-        Item item = new Item(1, "1", "asdf", "ab, eb, cz", "Item 1");
+        Item item = new Item(1, "1", "asdf", "ab, eb, cz", "Holo lens");
         User user = new User(1, "John", "Doe");
         StockItem stockItem = new StockItem(item, 10, 2);
-        BorrowItem borrowItem = new BorrowItem(item, user, new Date(), null);
+        BorrowItem borrowItem = new BorrowItem(0, item, user, new Date(), null);
         db.InsertItem(item);
         db.InsertUser(user);
         db.InsertStockItem(stockItem);
         db.InsertBorrowItem(borrowItem);
 
         Log.d("DATABASE", db.getItemProductIds().length + " Items found");
-        db.getBorrowedItems(user);
+        db.getBorrowedItems(user, false);
 
     }
 }
