@@ -40,7 +40,7 @@ public class HandInConfirmation extends AppCompatActivity {
             public void onClick(View v) {
                 setResult(Activity.RESULT_OK, new Intent());
 
-                Intent i = new Intent(getBaseContext(), HomeActivity.class);
+                Intent i = new Intent(getBaseContext(), ReturnItemActivity.class);
                 startActivity(i);
 
                 finish();
@@ -61,7 +61,7 @@ public class HandInConfirmation extends AppCompatActivity {
                 myDB.UpdateStockItem(stockItem);
                 setResult(Activity.RESULT_OK, new Intent());
 
-                Intent i = new Intent(getBaseContext(), HomeActivity.class);
+                Intent i = new Intent(getBaseContext(), ReturnItemActivity.class);
                 startActivity(i);
 
                 finish();
@@ -81,7 +81,7 @@ public class HandInConfirmation extends AppCompatActivity {
                 myDB.UpdateStockItem(stockItem);
                 setResult(Activity.RESULT_OK, new Intent());
 
-                Intent i = new Intent(getBaseContext(), HomeActivity.class);
+                Intent i = new Intent(getBaseContext(), ReturnItemActivity.class);
                 startActivity(i);
 
                 finish();

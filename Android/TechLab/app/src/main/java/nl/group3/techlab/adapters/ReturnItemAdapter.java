@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,10 +20,8 @@ import nl.group3.techlab.HandInConfirmation;
 import nl.group3.techlab.R;
 import nl.group3.techlab.models.BorrowItem;
 
-import static android.app.Activity.RESULT_OK;
-
-public class BorrowItemAdapter extends ArrayAdapter<BorrowItem> {
-    public BorrowItemAdapter(Context context, ArrayList<BorrowItem> borrowItems) {
+public class ReturnItemAdapter extends ArrayAdapter<BorrowItem> {
+    public ReturnItemAdapter(Context context, ArrayList<BorrowItem> borrowItems) {
         super(context, 0, borrowItems);
     }
 
@@ -34,7 +31,7 @@ public class BorrowItemAdapter extends ArrayAdapter<BorrowItem> {
         final BorrowItem borrowItem = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_borrow_item, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_return_item, parent, false);
         }
 
         final View reloadView = convertView;
