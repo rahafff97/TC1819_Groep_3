@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.conf import settings
 import uuid
 
 
@@ -16,7 +17,7 @@ class Item(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
     borrow_days = models.IntegerField(default=0)
     description = models.CharField(max_length=2048, default="")
-    image = models.ImageField(blank = True)
+    image = models.ImageField(blank=True, upload_to='static')
 
 
 class Writer(models.Model):
@@ -51,9 +52,6 @@ class Book(Item):
     isbn = models.CharField(max_length=128, default = "")
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
     stock = models.IntegerField(default=0)
-    description = Item.description
-    borrow_days = Item.borrow_days
-    image = Item.image
 
 
 class Electronic(Item):
