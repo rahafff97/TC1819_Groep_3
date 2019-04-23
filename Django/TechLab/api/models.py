@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime
 from django.conf import settings
 import uuid
+from django.contrib.auth.models import User as AuthUser
 
 
 # Create your models here.
@@ -12,6 +13,10 @@ class User(models.Model):
     google_api_id = models.CharField(max_length=128)
     email = models.EmailField()
 
+
+class API(models.Model):
+    user = models.ForeignKey(AuthUser, on_delete=models.CASCADE)
+    api_key = models.UUIDField(default=uuid.uuid4())
 
 class Item(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
