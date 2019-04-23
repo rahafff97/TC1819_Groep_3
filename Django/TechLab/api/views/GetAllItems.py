@@ -14,7 +14,7 @@ class GetAllItems(View):
         allBooks = Book.objects.all()
         allElectronics = Electronic.objects.all()
 
-        electronicList = []
+        
 
         return JsonResponse(json.loads('[{ "books": %s}, {"electronics" : %s}]' % (
             json.dumps([{
@@ -28,5 +28,13 @@ class GetAllItems(View):
                 'is_available': True if book.stock > 0 else False,
                 'borrow_days': book.borrow_days
                 } for book in allBooks]),
-            json.dumps(electronicList))),
-                            safe=False)
+            json.dumps([{
+                'electronic_title' : electronic.name,
+                'electronic_description' : electronic.description,
+                'electionric_image': settings.BASE_URL + settings.MEDIA_ROOT + electronic.image.url if electronic.image != '' else '',
+                'manufacturer': [{'name':manufacturer.name} for manufacturer in electronic.manufacturer.all()],
+                'category': electronic.category.name,
+                'is_available': True if electronic.stock > 0 else False,
+                'borrow_days': electronic.borrow_days
+                } for electronic in allElectronics]))),safe=False)
+            
