@@ -2,13 +2,13 @@ from django.conf import settings
 from django.http.response import JsonResponse
 from django.views.generic import View
 
-from .models import (Book, Electronic)
+from api.models import (Book, Electronic)
 
 import json
 
+
 # Create your views here.
 class GetAllItems(View):
-
     def get(self, request, *args, **kwargs):
 
         allBooks = Book.objects.all()

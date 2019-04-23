@@ -4,6 +4,6 @@ from django.conf.urls import url, include
 from .views import (GetAllItems)
 
 urlpatterns = [
-    url('^items/$', GetAllItems.as_view()),
+    url('^items/$', GetAllItems.GetAllItems.as_view()),
 #    url('items/<filter>', GetFilteredItems),
 ]
