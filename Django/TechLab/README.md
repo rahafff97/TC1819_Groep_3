@@ -16,7 +16,7 @@ After installing all the requirements you are able to run the server in two diff
 ## API requests
 
 At this moment the following will be the API for the application. It hasn't been implemented yet, but will very soon.
-
+~~~~
 items/
 	-> GET
 	-> Data Params GET:
@@ -298,9 +298,9 @@ ReturnItems/
 	-> Error Response POST:
 		- code 200
 		- content: {"error":"BorrowItem not found. "}
-
-----------------------------------------------------------------------------------------------------------------
+~~~~
 ### Not yet finished. 
+~~~~
 manufacturers/
 	-> GET: lijst van alle manufacturers
 	-> POST: nieuwe manufacturer aanmaken
@@ -342,3 +342,4 @@ beheerders/<id>/ - {GET: {}, DELETE: {api_key: uuid}}
 				
 statistics/ - {GET: {}}
 				-> GET: Het ophalen van globale statistieken van de gebruikers. 
+~~~~
