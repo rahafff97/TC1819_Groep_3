@@ -140,7 +140,7 @@
                     android:background="@color/colorPrimary"
                     android:text="@string/volgende"
                     android:textColor="@color/white"
-                    android:onClick="inloggen"
+                    android:onClick="loggingIn"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Password"/>

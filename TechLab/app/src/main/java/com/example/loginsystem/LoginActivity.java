@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -21,24 +20,28 @@ import com.google.android.gms.tasks.Task;
 public class LoginActivity extends AppCompatActivity {
     int RC_SIGN_IN = 0;
     SignInButton signInButton;
-    static GoogleSignInClient mGoogleSignInClient;
+    GoogleSignInClient mGoogleSignInClient;
     MyTechlab myDb;
     boolean HrEmail;
     View FindEmail;
     static String Email;
     View FindPassword;
     View FindText;
-    static boolean logged_in = false;
+    String personEmail;
+    static boolean logged_in;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        FindPassword = (EditText) findViewById(R.id.Password);
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        logged_in = account != null;
+
+        FindPassword = findViewById(R.id.Password);
         FindPassword.setVisibility(View.INVISIBLE);
         FindPassword.setVisibility(View.GONE);
-        FindText = (TextView) findViewById(R.id.textView4);
+        FindText = findViewById(R.id.textView4);
         FindText.setVisibility(View.INVISIBLE);
         FindText.setVisibility(View.GONE);
 
@@ -66,9 +69,9 @@ public class LoginActivity extends AppCompatActivity {
         myDb.getWritableDatabase();
     }
 
-   public void inloggen(View view) {
+   public void loggingIn(View view) {
        myDb = new MyTechlab(this);
-       FindEmail = (EditText) findViewById(R.id.email);
+       FindEmail = findViewById(R.id.email);
        Email = ((EditText) FindEmail).getText().toString();
        String Password = ((EditText) FindPassword).getText().toString();
        String Admin = "Admin";
@@ -94,7 +97,6 @@ public class LoginActivity extends AppCompatActivity {
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
-
     }
 
     @Override
@@ -115,14 +117,17 @@ public class LoginActivity extends AppCompatActivity {
         try {//check Hr account or not
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
-            String personEmail = account.getEmail();
+
+            if (account != null){
+                personEmail = account.getEmail();
+            }
             if (personEmail != null && personEmail.endsWith("@hr.nl")) {
                 HrEmail = true;
                 /* Signed in successfully, show authenticated UI. */
                 startActivity(new Intent(LoginActivity.this, ItemsAndMenuActivity.class));
                 finish();
             } else {
-                Toast.makeText(LoginActivity.this, "Je moet met jouw HR account inloggen", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Je moet met jouw HR account loggingIn", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, LoginActivity.class));
                 mGoogleSignInClient.signOut();
             }
@@ -144,6 +149,9 @@ public class LoginActivity extends AppCompatActivity {
         if (account != null && logged_in) {
 //        if (account != null) {
             startActivity(new Intent(LoginActivity.this, ItemsAndMenuActivity.class));
+        }
+        else {
+            logged_in = false;
         }
         super.onStart();
     }

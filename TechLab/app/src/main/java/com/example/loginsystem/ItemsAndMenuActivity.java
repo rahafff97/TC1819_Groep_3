@@ -18,7 +18,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -26,6 +29,8 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Button sign_out;
     GoogleSignInClient mGoogleSignInClient;
+    TextView emailTV;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +40,6 @@ public class ItemsAndMenuActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         LoginActivity.logged_in = true;
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -44,6 +48,26 @@ public class ItemsAndMenuActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+        emailTV = (TextView) headerView.findViewById(R.id.emailtv);
+        /* Configure sign-in to request the user's ID, email address, and basic*/
+        /* profile. ID and basic profile are included in DEFAULT_SIGN_IN.*/
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(ItemsAndMenuActivity.this);
+
+        if (acct != null){
+            final String personEmail;
+            String personName = acct.getDisplayName();
+            personEmail = acct.getEmail();
+            System.out.println("mail:" + personEmail);
+            emailTV.setText(personEmail);
+        } else {
+            emailTV.setText(LoginActivity.Email);
+        }
     }
 
     @Override
@@ -107,7 +131,7 @@ public class ItemsAndMenuActivity extends AppCompatActivity
     }
     private void signOut() {
         // Dit zorgt ervoor dat je uitlogt, een toast krijgt na het uitloggen en dat je terug gaat naar het loginscherm
-        LoginActivity.mGoogleSignInClient.signOut()
+        mGoogleSignInClient.signOut()
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
