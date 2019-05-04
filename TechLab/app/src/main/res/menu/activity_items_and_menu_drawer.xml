@@ -8,6 +8,9 @@
             android:id="@+id/meldingen"
             android:title="Meldingen" />
         <item
+            android:id="@+id/geschiedenis"
+            android:title="Geschiedenis" />
+        <item
             android:id="@+id/terugnemen"
             android:title="Terugnemen" />
         <item
