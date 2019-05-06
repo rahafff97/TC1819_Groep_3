@@ -113,8 +113,8 @@ EditText eItemdes,eItemcat;
                     db.insertData(selectedName,selectedDesc);
                     toastMessage("Data added");
                     toastMessage("Item has been borrowed");
-                }
-                else{
+                    startActivity(new Intent(borrowItemContents.this, ViewItemContents.class));
+                } else{
                     toastMessage("Item is not available");
 
                 }

@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Geschiedenis" />
+        <activity android:name=".Geschiedenis"
+                  android:label="Geshiedenis"/>
         <activity android:name=".view.ViewBorrowedItem" />
         <activity android:name=".borrowItemContents" />
     </application>
