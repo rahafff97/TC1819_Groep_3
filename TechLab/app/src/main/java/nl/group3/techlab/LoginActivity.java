@@ -1,4 +1,4 @@
-package com.example.loginsystem;
+package nl.group3.techlab;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +16,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+
+import nl.group3.techlab.databases.MyTechlab;
 
 public class LoginActivity extends AppCompatActivity {
     int RC_SIGN_IN = 0;
@@ -97,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+        finish();
     }
 
     @Override
@@ -117,7 +120,6 @@ public class LoginActivity extends AppCompatActivity {
         try {//check Hr account or not
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
-
             if (account != null){
                 personEmail = account.getEmail();
             }
@@ -130,6 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Je moet met jouw HR account loggingIn", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, LoginActivity.class));
                 mGoogleSignInClient.signOut();
+                finish();
             }
 
         } catch (ApiException e) {
@@ -149,8 +152,8 @@ public class LoginActivity extends AppCompatActivity {
         if (account != null && logged_in) {
 //        if (account != null) {
             startActivity(new Intent(LoginActivity.this, ItemsAndMenuActivity.class));
-        }
-        else {
+            finish();
+        } else {
             logged_in = false;
         }
         super.onStart();

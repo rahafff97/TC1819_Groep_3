@@ -1,4 +1,4 @@
-package com.example.loginsystem;
+package nl.group3.techlab.databases;
 
 import android.content.ContentValues;
 import android.content.Context;

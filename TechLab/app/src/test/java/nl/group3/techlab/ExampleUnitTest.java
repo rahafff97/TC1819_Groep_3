@@ -1,4 +1,4 @@
-package com.example.loginsystem;
+package nl.group3.techlab;
 
 import org.junit.Test;
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.loginsystem">
+    package="nl.group3.techlab">
 
     <application
         android:allowBackup="true"
@@ -9,20 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".History.HistoryActivity"></activity>
+        <activity android:name=".AddNewItem"></activity>
+        <activity android:name="nl.group3.techlab.History.HistoryActivity"></activity>
         <activity
-            android:name=".ItemsAndMenuActivity"
+            android:name="nl.group3.techlab.ItemsAndMenuActivity"
             android:label="@string/Producten"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".AdminActivity" />
-        <activity android:name=".UserActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name="nl.group3.techlab.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".History"
+            android:label="Geshiedenis"/>
+        <activity android:name=".view.ViewBorrowedItem" />
+        <activity android:name=".ItemEdit" />
     </application>
 
 </manifest>

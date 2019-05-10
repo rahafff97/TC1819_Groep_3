@@ -1,4 +1,4 @@
-package com.example.loginsystem;
+package nl.group3.techlab;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
