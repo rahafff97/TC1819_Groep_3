@@ -193,6 +193,8 @@ public class ItemsAndMenuActivity extends AppCompatActivity
             signOut();
         } else if(id == R.id.geschiedenis){
             startActivity(new Intent(ItemsAndMenuActivity.this, History.class));
+        } else if(id == R.id.meldingen){
+            startActivity(new Intent(ItemsAndMenuActivity.this, Notifications.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
